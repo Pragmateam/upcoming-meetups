@@ -1,0 +1,33 @@
+{
+  "name": "upcoming-meetups",
+  "version": "0.0.0",
+  "description": "Getting posted about upcoming events from meetup.com",
+  "main": "index.js",
+  "scripts": {
+    "autofix-lint": "eslint test/** src/** --fix",
+    "pretest": "eslint test/** src/**",
+    "test": "mocha --recursive",
+    "start": "node example/local.js"
+  },
+  "keywords": [
+    "pragmateam",
+    "pragmatic",
+    "team",
+    "meetup"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "claudia-api-builder": "^2.4.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "claudia": "^2.11.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb-base": "^11.1.2",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "mocha": "^3.2.0"
+  }
+}
