@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/codeclimate/github/Pragmateam/upcoming-meetups.svg" alt="codeclimate score">
 </p>
 
-Get posted about upcoming events from meetup.com
+Get posted about upcoming meetups from meetup.com
 
 ### Setup
 
@@ -47,7 +47,7 @@ export MEETUP_API_KEY='<VALUE>'
 Running locally:
 
 ```
-$ make run eventName=software-craftsmanship-sydney
+$ make run meetupName=software-craftsmanship-sydney
 ```
 
 Deploy to AWS Lambda + API Gateway:

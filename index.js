@@ -1,15 +1,15 @@
 const ApiBuilder = require('claudia-api-builder');
-const getUpcomingEvents = require('./src/getUpcomingEvents');
+const getUpcomingMeetups = require('./src/getUpcomingMeetups');
 
 const api = new ApiBuilder();
 
 module.exports = api;
 
-api.get('/upcoming-events', (request) => {
-  const eventName = request.queryString.name;
+api.get('/upcoming-meetups', (request) => {
+  const meetupName = request.queryString.name;
   const token = { key: process.env.MEETUP_API_KEY };
 
-  return getUpcomingEvents(eventName, token).then((response) => {
+  return getUpcomingMeetups(meetupName, token).then((response) => {
     return response;
   }).catch(err => console.error(err));
 }, { success: { contentType: 'text/plain' } });

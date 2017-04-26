@@ -5,7 +5,7 @@ test:
 	npm test
 
 run:
-	npm start $(eventName)
+	npm start $(meetupName)
 
 deploy:
 	./infrastructure/deploy.sh
