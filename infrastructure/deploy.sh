@@ -3,6 +3,7 @@
 npm install
 node ./infrastructure/claudiaDynamicSetup.js
 ./node_modules/.bin/claudia update --config claudia.json
+rm -rf node_modules
 
 # First time deploy
 #./node_modules/.bin/claudia create \
