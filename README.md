@@ -6,6 +6,8 @@
   <img src="https://img.shields.io/codeclimate/github/Pragmateam/upcoming-meetups.svg" alt="codeclimate score">
 </p>
 
+Get posted about upcoming events from meetup.com
+
 ### Setup
 
 To ensure you're using the correct node.js version, run this command first:

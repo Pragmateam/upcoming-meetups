@@ -1,7 +1,7 @@
 {
   "name": "upcoming-meetups",
   "version": "0.0.1",
-  "description": "Getting posted about upcoming events from meetup.com",
+  "description": "Get posted about upcoming events from meetup.com",
   "main": "index.js",
   "scripts": {
     "autofix-lint": "eslint test/** src/** --fix",
