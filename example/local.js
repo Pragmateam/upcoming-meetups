@@ -1,4 +1,5 @@
 const api = require('../index');
+
 const args = process.argv.slice(2);
 const eventNameFromCommandLine = args[args.length - 1];
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-#npm install
-#node ./infrastructure/claudiaDynamicSetup.js
-#./node_modules/.bin/claudia update --config claudia.json
+npm install
+node ./infrastructure/claudiaDynamicSetup.js
+./node_modules/.bin/claudia update --config claudia.json
 
 # First time deploy
-./node_modules/.bin/claudia create \
-  --region ${AWS_REGION} \
-  --api-module index \
-  --name ${FUNCTION_NAME} \
-  --set-env MEETUP_API_KEY=${MEETUP_API_KEY}
+#./node_modules/.bin/claudia create \
+#  --region ${AWS_REGION} \
+#  --api-module index \
+#  --name ${FUNCTION_NAME} \
+#  --set-env MEETUP_API_KEY=${MEETUP_API_KEY}
