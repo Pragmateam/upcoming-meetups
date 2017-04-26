@@ -5,7 +5,7 @@ test:
 	npm test
 
 run:
-	npm start
+	npm start $(eventName)
 
 deploy:
 	./infrastructure/deploy.sh

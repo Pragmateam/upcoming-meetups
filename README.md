@@ -1,6 +1,10 @@
 # upcoming-meetups
 
-[![Build Status](https://travis-ci.org/Pragmateam/upcoming-meetups.svg?branch=master)](https://travis-ci.org/Pragmateam/upcoming-meetups)
+<p align="center">
+  <img src="https://img.shields.io/travis/Pragmateam/upcoming-meetups.svg" alt="travis">
+  <img src="https://img.shields.io/github/license/Pragmateam/upcoming-meetups.svg" alt="license">
+  <img src="https://img.shields.io/codeclimate/github/Pragmateam/upcoming-meetups.svg" alt="codeclimate score">
+</p>
 
 ### Setup
 
@@ -41,7 +45,7 @@ export MEETUP_API_KEY='<VALUE>'
 Running locally:
 
 ```
-$ make run
+$ make run eventName=software-craftsmanship-sydney
 ```
 
 Deploy to AWS Lambda + API Gateway:
@@ -58,4 +62,4 @@ Either way will be very appreciated.
 
 ### License
 
-upcoming-meetups is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+Pragmateam/upcoming-meetups is released under the [MIT License](http://www.opensource.org/licenses/MIT).
