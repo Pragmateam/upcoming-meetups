@@ -17,7 +17,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.16.1",
     "claudia-api-builder": "^2.4.1"
   },
   "devDependencies": {

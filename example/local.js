@@ -1,7 +1,7 @@
 const api = require('../index');
 
 const args = process.argv.slice(2);
-const meetupNameFromCommandLine = args[args.length - 1];
+const meetupNamesFromCommandLine = args[args.length - 1];
 
 const apiRequest = {
   context: {
@@ -9,7 +9,7 @@ const apiRequest = {
     method: 'GET',
   },
   queryString: {
-    name: meetupNameFromCommandLine,
+    meetups: meetupNamesFromCommandLine,
   },
 };
 

@@ -47,7 +47,7 @@ export MEETUP_API_KEY='<VALUE>'
 Running locally:
 
 ```
-$ make run meetupName=software-craftsmanship-sydney
+$ make run meetupName=software-craftsmanship-sydney,sydney-node-ninjas,React-Sydney
 ```
 
 Deploy to AWS Lambda + API Gateway:

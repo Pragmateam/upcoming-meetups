@@ -6,10 +6,10 @@ const api = new ApiBuilder();
 module.exports = api;
 
 api.get('/upcoming-meetups', (request) => {
-  const meetupName = request.queryString.name;
+  const meetups = request.queryString.meetups.split(',');
   const token = { key: process.env.MEETUP_API_KEY };
 
-  return getUpcomingMeetups(meetupName, token).then((response) => {
+  return getUpcomingMeetups(meetups, token).then((response) => {
     return response;
   }).catch(err => console.error(err));
 }, { success: { contentType: 'text/plain' } });
