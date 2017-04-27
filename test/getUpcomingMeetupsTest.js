@@ -1,27 +1,33 @@
 const expect = require('chai').expect;
 const nock = require('nock');
+const faker = require('faker');
 
 const getUpcomingMeetups = require('../src/getUpcomingMeetups');
 
 describe('getUpcomingMeetups', () => {
   it('returns all upcoming meetups', (done) => {
-    const meetupName = 'sydney-node-ninjas';
+    const meetup = {
+      name: faker.company.companySuffix(),
+      venue: faker.address.streetAddress(),
+      link: faker.internet.url(),
+    };
+
     const token = { key: 'SECRET' };
 
     nock('https://api.meetup.com/')
-      .get(`/${meetupName}/events`)
+      .get(`/${meetup.name}/events`)
       .query({ key: token.key, status: 'upcoming', page: 1 })
       .reply(200, [{
-        name: 'Sydney Node Ninjas @ Mi9',
+        name: meetup.name,
         venue: {
-          name: 'MI9 Office',
+          name: meetup.venue,
         },
-        link: 'https://www.meetup.com/sydney-node-ninjas/meetups/231588486/',
+        link: meetup.link,
       }]);
 
-    getUpcomingMeetups(meetupName, token).then((upcomingMeetups) => {
+    getUpcomingMeetups(meetup.name, token).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        'Sydney Node Ninjas @ Mi9 at MI9 Office - https://www.meetup.com/sydney-node-ninjas/meetups/231588486/',
+        `${meetup.name} at ${meetup.venue} - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });

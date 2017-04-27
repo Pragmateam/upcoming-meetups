@@ -18,11 +18,11 @@ class Meetup {
   }
 
   get name() { return this.meetup.name; }
-  get address() { return this.meetup.venue.name; }
+  get venue() { return this.meetup.venue.name; }
   get link() { return this.meetup.link; }
 
   toString() {
-    return `${this.name} at ${this.address} - ${this.link}`;
+    return `${this.name} at ${this.venue} - ${this.link}`;
   }
 }
 
