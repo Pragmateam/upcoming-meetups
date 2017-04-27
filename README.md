@@ -33,6 +33,15 @@ $ make test
 Export all environment variables as follows:
 
 ```
+# meetup.com API
+export MEETUP_API_KEY='<VALUE>'
+
+$ make run meetupName=software-craftsmanship-sydney,sydney-node-ninjas,React-Sydney
+```
+
+### Deploy to AWS Lambda + API Gateway:
+
+```
 # setup to deploy with claudia.js
 export AWS_REGION='<VALUE>'
 export FUNCTION_NAME='<VALUE>'
@@ -40,19 +49,6 @@ export CLAUDIA_LAMBDA_ROLE='<VALUE>'
 export CLAUDIA_LAMBDA_NAME='<VALUE>'
 export CLAUDIA_API_ID='<VALUE>'
 
-# meetup.com API
-export MEETUP_API_KEY='<VALUE>'
-```
-
-Running locally:
-
-```
-$ make run meetupName=software-craftsmanship-sydney,sydney-node-ninjas,React-Sydney
-```
-
-Deploy to AWS Lambda + API Gateway:
-
-```
 $ make deploy
 ```
 
