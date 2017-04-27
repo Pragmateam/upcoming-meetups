@@ -5,9 +5,11 @@ const faker = require('faker');
 const getUpcomingMeetups = require('../src/getUpcomingMeetups');
 
 describe('getUpcomingMeetups', () => {
-  const token = { key: 'SECRET' };
-  const params = {
-    key: token.key,
+  const MEETUP_API = 'https://api.meetup.com/';
+  const TOKEN = { key: 'SECRET' };
+
+  const PARAMS = {
+    key: TOKEN.key,
     status: 'upcoming',
     page: 1,
     only: 'name,venue,link',
@@ -20,9 +22,9 @@ describe('getUpcomingMeetups', () => {
       link: faker.internet.url(),
     };
 
-    nock('https://api.meetup.com/')
+    nock(MEETUP_API)
       .get(`/${meetup.name}/events`)
-      .query(params)
+      .query(PARAMS)
       .reply(200, [{
         name: meetup.name,
         venue: {
@@ -31,7 +33,7 @@ describe('getUpcomingMeetups', () => {
         link: meetup.link,
       }]);
 
-    getUpcomingMeetups([meetup.name], token).then((upcomingMeetups) => {
+    getUpcomingMeetups([meetup.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
         `${meetup.name} at ${meetup.venue} - ${meetup.link}`,
       ]);
@@ -51,9 +53,9 @@ describe('getUpcomingMeetups', () => {
       link: faker.internet.url(),
     };
 
-    nock('https://api.meetup.com/')
+    nock(MEETUP_API)
       .get(`/${someMeetup.name}/events`)
-      .query(params)
+      .query(PARAMS)
       .reply(200, [{
         name: someMeetup.name,
         venue: {
@@ -62,9 +64,9 @@ describe('getUpcomingMeetups', () => {
         link: someMeetup.link,
       }]);
 
-    nock('https://api.meetup.com/')
+    nock(MEETUP_API)
       .get(`/${anotherMeetup.name}/events`)
-      .query(params)
+      .query(PARAMS)
       .reply(200, [{
         name: anotherMeetup.name,
         venue: {
@@ -73,7 +75,7 @@ describe('getUpcomingMeetups', () => {
         link: anotherMeetup.link,
       }]);
 
-    getUpcomingMeetups([someMeetup.name, anotherMeetup.name], token).then((upcomingMeetups) => {
+    getUpcomingMeetups([someMeetup.name, anotherMeetup.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
         `${someMeetup.name} at ${someMeetup.venue} - ${someMeetup.link}`,
         `${anotherMeetup.name} at ${anotherMeetup.venue} - ${anotherMeetup.link}`,
