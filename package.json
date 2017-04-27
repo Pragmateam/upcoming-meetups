@@ -6,7 +6,7 @@
   "scripts": {
     "autofix-lint": "eslint test/** src/** --fix",
     "pretest": "eslint test/** src/**",
-    "test": "mocha --recursive",
+    "test": "istanbul cover _mocha --",
     "start": "node example/local.js"
   },
   "keywords": [
@@ -30,6 +30,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
     "faker": "^4.1.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nock": "^9.0.13"
   }
