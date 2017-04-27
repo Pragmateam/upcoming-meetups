@@ -1,17 +1,5 @@
 const https = require('https');
-const querystring = require('querystring');
-
-function composeUrl(meetupName, token) {
-  const basePath = 'https://api.meetup.com';
-  const params = querystring.stringify({
-    key: token.key,
-    status: 'upcoming',
-    page: 1,
-    only: 'name,venue,link',
-  });
-
-  return `${basePath}/${meetupName}/events?${params}`;
-}
+const meetupAPI = require('./meetupAPI');
 
 function httpGet(url) {
   return new Promise((resolve, reject) => {
@@ -45,7 +33,7 @@ class Meetup {
 }
 
 const getUpcomingMeetups = (meetups, token) => {
-  const meetupUrls = meetups.map(meetupName => composeUrl(meetupName, token));
+  const meetupUrls = meetups.map(meetupName => meetupAPI.composeUrl(meetupName, token));
   const promises = meetupUrls.map(url => httpGet(url));
 
   const requests = Promise.all(promises)

@@ -1,12 +1,12 @@
 {
   "name": "upcoming-meetups",
-  "version": "0.2.0",
+  "version": "0.3.0-dev",
   "description": "Get posted about upcoming meetups from meetup.com",
   "main": "index.js",
   "scripts": {
     "autofix-lint": "eslint test/** src/** --fix",
     "pretest": "eslint test/** src/**",
-    "test": "istanbul cover _mocha --",
+    "test": "istanbul cover _mocha -- --recursive",
     "start": "node example/local.js"
   },
   "keywords": [
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-string": "^1.3.0",
     "claudia": "^2.11.0",
     "eslint": "^3.18.0",
     "eslint-config-airbnb-base": "^11.1.2",

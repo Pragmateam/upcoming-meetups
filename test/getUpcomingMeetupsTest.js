@@ -4,6 +4,10 @@ const faker = require('faker');
 
 const getUpcomingMeetups = require('../src/getUpcomingMeetups');
 
+function generateFakeEventName() {
+  return faker.hacker.adjective().replace(' ', '-');
+}
+
 describe('getUpcomingMeetups', () => {
   const MEETUP_API = 'https://api.meetup.com/';
   const TOKEN = { key: 'SECRET' };
@@ -17,7 +21,7 @@ describe('getUpcomingMeetups', () => {
 
   it('returns the next upcoming meetup', (done) => {
     const meetup = {
-      name: faker.hacker.adjective(),
+      name: generateFakeEventName(),
       venue: faker.address.streetAddress(),
       link: faker.internet.url(),
     };
@@ -42,13 +46,13 @@ describe('getUpcomingMeetups', () => {
 
   it('returns all upcoming meetups', (done) => {
     const someMeetup = {
-      name: faker.hacker.adjective(),
+      name: generateFakeEventName(),
       venue: faker.address.streetAddress(),
       link: faker.internet.url(),
     };
 
     const anotherMeetup = {
-      name: faker.hacker.adjective(),
+      name: generateFakeEventName(),
       venue: faker.address.streetAddress(),
       link: faker.internet.url(),
     };
