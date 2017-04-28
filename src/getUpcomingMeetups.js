@@ -1,6 +1,8 @@
 const meetupAPI = require('./meetupAPI');
 const moment = require('moment');
 
+moment.locale('en-au');
+
 class Meetup {
   constructor(meetup) {
     this.meetup = meetup;
