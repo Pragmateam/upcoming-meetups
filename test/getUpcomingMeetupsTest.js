@@ -19,9 +19,8 @@ describe('getUpcomingMeetups', () => {
   it('returns the next upcoming meetup', (done) => {
     const meetup = {
       name: generateFakeEventName(),
-      venue: {
-        name: faker.address.streetAddress(),
-      },
+      time: 1493884800000,
+      duration: 10800000,
       link: faker.internet.url(),
     };
 
@@ -31,7 +30,7 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups([meetup.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `${meetup.name} at ${meetup.venue.name} - ${meetup.link}`,
+        `${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
@@ -39,13 +38,18 @@ describe('getUpcomingMeetups', () => {
   it('returns multiple upcoming meetups', (done) => {
     const someMeetup = {
       name: generateFakeEventName(),
-      venue: faker.address.streetAddress(),
+      time: 1493884800000,
+      duration: 10800000,
+      venue: {
+        name: faker.address.streetAddress(),
+      },
       link: faker.internet.url(),
     };
 
     const anotherMeetup = {
       name: generateFakeEventName(),
-      venue: faker.address.streetAddress(),
+      time: 1493884800000,
+      duration: 5400000,
       link: faker.internet.url(),
     };
 
@@ -59,8 +63,8 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups([someMeetup.name, anotherMeetup.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `${someMeetup.name} at ${someMeetup.venue.name} - ${someMeetup.link}`,
-        `${anotherMeetup.name} at ${anotherMeetup.venue.name} - ${anotherMeetup.link}`,
+        `${someMeetup.name} - May 4, 6:00 PM to 9:00 PM - ${someMeetup.link}`,
+        `${anotherMeetup.name} - May 4, 6:00 PM to 7:30 PM - ${anotherMeetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });

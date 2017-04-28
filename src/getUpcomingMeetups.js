@@ -1,5 +1,29 @@
 const meetupAPI = require('./meetupAPI');
-const Meetup = require('./meetup');
+const moment = require('moment');
+
+class Meetup {
+  constructor(meetup) {
+    this.meetup = meetup;
+  }
+
+  get name() { return this.meetup.name; }
+
+  get time() {
+    const startTime = moment(this.meetup.time).format('MMMM D, h:mm A');
+    const endTime = moment(this.meetup.time)
+      .add(this.meetup.duration, 'milliseconds')
+      .format('h:mm A');
+
+    return `${startTime} to ${endTime}`;
+  }
+
+  get venue() { return this.meetup.venue.name; }
+  get link() { return this.meetup.link; }
+
+  toString() {
+    return `${this.name} - ${this.time} - ${this.link}`;
+  }
+}
 
 const getUpcomingMeetups = (meetups, token) => {
   const promises = meetups

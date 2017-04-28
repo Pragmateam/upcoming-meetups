@@ -1,14 +1,9 @@
 const chai = require('chai');
-const meetupAPI = require('../../src/meetupAPI');
 const nock = require('nock');
-const faker = require('faker');
+const meetupAPI = require('../../src/meetupAPI');
 
 const expect = chai.expect;
 chai.use(require('chai-string'));
-
-function generateFakeEventName() {
-  return faker.hacker.adjective().replace(' ', '-');
-}
 
 describe('meetupAPI', () => {
   const TOKEN = { key: 'SECRET' };
@@ -20,17 +15,11 @@ describe('meetupAPI', () => {
       key: TOKEN.key,
       status: 'upcoming',
       page: 1,
-      only: 'name,venue,link',
+      only: 'name,time,duration,link',
     };
 
     it('returns the next upcoming meetup', (done) => {
-      const meetup = {
-        name: generateFakeEventName(),
-        venue: {
-          name: faker.address.streetAddress(),
-        },
-        link: faker.internet.url(),
-      };
+      const meetup = 'foo';
 
       nock(MEETUP_API)
         .get(`/${meetup.name}/events`)
