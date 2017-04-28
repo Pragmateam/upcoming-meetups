@@ -19,7 +19,8 @@
   "dependencies": {
     "claudia-api-builder": "^2.4.1",
     "got": "^6.7.1",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13"
   },
   "devDependencies": {
     "chai": "^3.5.0",

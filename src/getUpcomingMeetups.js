@@ -1,7 +1,5 @@
 const meetupAPI = require('./meetupAPI');
-const moment = require('moment');
-
-moment.locale('en-au');
+const moment = require('moment-timezone');
 
 class Meetup {
   constructor(meetup) {
@@ -11,8 +9,10 @@ class Meetup {
   get name() { return this.meetup.name; }
 
   get time() {
-    const startTime = moment(this.meetup.time).format('MMMM D, h:mm A');
-    const endTime = moment(this.meetup.time)
+    const startTime = moment(this.meetup.time).tz('Australia/Sydney')
+      .format('MMMM D, h:mm A');
+
+    const endTime = moment(this.meetup.time).tz('Australia/Sydney')
       .add(this.meetup.duration, 'milliseconds')
       .format('h:mm A');
 
