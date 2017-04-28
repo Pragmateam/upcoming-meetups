@@ -17,7 +17,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "claudia-api-builder": "^2.4.1"
+    "claudia-api-builder": "^2.4.1",
+    "got": "^6.7.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",

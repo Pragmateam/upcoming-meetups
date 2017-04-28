@@ -1,4 +1,4 @@
-const httpGet = require('../httpGet');
+const httpGet = require('got');
 const querystring = require('querystring');
 
 function composeUrl(meetupName, token) {
@@ -15,7 +15,8 @@ function composeUrl(meetupName, token) {
 
 module.exports = class MeetupAPI {
   static upcomingMeetup(meetupName, token) {
-    return httpGet(composeUrl(meetupName, token))
-      .then(response => response[0]);
+    return httpGet.get(composeUrl(meetupName, token))
+      .then(response => JSON.parse(response.body))
+      .then(upcomingMeetups => upcomingMeetups[0]);
   }
 };
