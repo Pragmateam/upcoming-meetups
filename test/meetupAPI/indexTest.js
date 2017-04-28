@@ -1,25 +1,45 @@
 const chai = require('chai');
 const meetupAPI = require('../../src/meetupAPI');
+const nock = require('nock');
+const faker = require('faker');
 
 const expect = chai.expect;
 chai.use(require('chai-string'));
 
+function generateFakeEventName() {
+  return faker.hacker.adjective().replace(' ', '-');
+}
+
 describe('meetupAPI', () => {
   const TOKEN = { key: 'SECRET' };
 
-  describe('#composeUrl', () => {
-    const BASE_PATH = 'https://api.meetup.com';
+  describe('#upcomingMeetup', () => {
+    const MEETUP_API = 'https://api.meetup.com/';
 
-    it('returns composed url', () => {
-      expect(meetupAPI.composeUrl('node-girls', TOKEN))
-        .to.startsWith(`${BASE_PATH}/node-girls/events`);
-    });
+    const PARAMS = {
+      key: TOKEN.key,
+      status: 'upcoming',
+      page: 1,
+      only: 'name,venue,link',
+    };
 
-    it('returns composed url with default query strings, such as: key, status, page and fields', () => {
-      const fields = ['name', 'venue', 'link'];
+    it('returns the next upcoming meetup', (done) => {
+      const meetup = {
+        name: generateFakeEventName(),
+        venue: {
+          name: faker.address.streetAddress(),
+        },
+        link: faker.internet.url(),
+      };
 
-      expect(meetupAPI.composeUrl('node-girls', TOKEN))
-        .to.endsWith(`?key=SECRET&status=upcoming&page=1&only=${fields.join('%2C')}`);
+      nock(MEETUP_API)
+        .get(`/${meetup.name}/events`)
+        .query(PARAMS)
+        .reply(200, [meetup]);
+
+      meetupAPI.upcomingMeetup(meetup.name, TOKEN).then((upcomingMeetup) => {
+        expect(upcomingMeetup).to.eql(meetup);
+      }).then(done).catch(err => done(err));
     });
   });
 });

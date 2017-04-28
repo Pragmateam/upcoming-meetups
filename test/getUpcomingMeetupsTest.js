@@ -1,7 +1,8 @@
 const expect = require('chai').expect;
-const nock = require('nock');
 const faker = require('faker');
+const sinon = require('sinon');
 
+const meetupAPI = require('../src/meetupAPI');
 const getUpcomingMeetups = require('../src/getUpcomingMeetups');
 
 function generateFakeEventName() {
@@ -9,42 +10,33 @@ function generateFakeEventName() {
 }
 
 describe('getUpcomingMeetups', () => {
-  const MEETUP_API = 'https://api.meetup.com/';
   const TOKEN = { key: 'SECRET' };
+  const sandbox = sinon.sandbox.create();
 
-  const PARAMS = {
-    key: TOKEN.key,
-    status: 'upcoming',
-    page: 1,
-    only: 'name,venue,link',
-  };
+  beforeEach(() => sandbox.stub(meetupAPI, 'upcomingMeetup'));
+  afterEach(() => sandbox.restore());
 
   it('returns the next upcoming meetup', (done) => {
     const meetup = {
       name: generateFakeEventName(),
-      venue: faker.address.streetAddress(),
+      venue: {
+        name: faker.address.streetAddress(),
+      },
       link: faker.internet.url(),
     };
 
-    nock(MEETUP_API)
-      .get(`/${meetup.name}/events`)
-      .query(PARAMS)
-      .reply(200, [{
-        name: meetup.name,
-        venue: {
-          name: meetup.venue,
-        },
-        link: meetup.link,
-      }]);
+    meetupAPI.upcomingMeetup
+      .withArgs(meetup.name, TOKEN)
+      .returns(Promise.resolve(meetup));
 
     getUpcomingMeetups([meetup.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `${meetup.name} at ${meetup.venue} - ${meetup.link}`,
+        `${meetup.name} at ${meetup.venue.name} - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
 
-  it('returns all upcoming meetups', (done) => {
+  it('returns multiple upcoming meetups', (done) => {
     const someMeetup = {
       name: generateFakeEventName(),
       venue: faker.address.streetAddress(),
@@ -57,32 +49,18 @@ describe('getUpcomingMeetups', () => {
       link: faker.internet.url(),
     };
 
-    nock(MEETUP_API)
-      .get(`/${someMeetup.name}/events`)
-      .query(PARAMS)
-      .reply(200, [{
-        name: someMeetup.name,
-        venue: {
-          name: someMeetup.venue,
-        },
-        link: someMeetup.link,
-      }]);
+    meetupAPI.upcomingMeetup
+      .withArgs(someMeetup.name, TOKEN)
+      .returns(Promise.resolve(someMeetup));
 
-    nock(MEETUP_API)
-      .get(`/${anotherMeetup.name}/events`)
-      .query(PARAMS)
-      .reply(200, [{
-        name: anotherMeetup.name,
-        venue: {
-          name: anotherMeetup.venue,
-        },
-        link: anotherMeetup.link,
-      }]);
+    meetupAPI.upcomingMeetup
+      .withArgs(anotherMeetup.name, TOKEN)
+      .returns(Promise.resolve(anotherMeetup));
 
     getUpcomingMeetups([someMeetup.name, anotherMeetup.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `${someMeetup.name} at ${someMeetup.venue} - ${someMeetup.link}`,
-        `${anotherMeetup.name} at ${anotherMeetup.venue} - ${anotherMeetup.link}`,
+        `${someMeetup.name} at ${someMeetup.venue.name} - ${someMeetup.link}`,
+        `${anotherMeetup.name} at ${anotherMeetup.venue.name} - ${anotherMeetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
