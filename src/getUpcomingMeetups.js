@@ -1,7 +1,7 @@
 const meetupAPI = require('./meetupAPI');
 const moment = require('moment-timezone');
 
-class Meetup {
+class MeetupRenderer {
   constructor(meetup) {
     this.meetup = meetup;
   }
@@ -34,9 +34,17 @@ class Meetup {
     return this.meetup.link;
   }
 
-  toString() {
+  render() {
     return `${this.name} - ${this.time} - ${this.link}`;
   }
+}
+
+function onlyValid(x) {
+  return x !== undefined;
+}
+
+function toMeetup(meetup) {
+  return new MeetupRenderer(meetup);
 }
 
 const getUpcomingMeetups = (meetups, token) => {
@@ -44,10 +52,10 @@ const getUpcomingMeetups = (meetups, token) => {
     .map(meetupName => meetupAPI.upcomingMeetup(meetupName, token));
 
   const requests = Promise.all(promises)
-    .then(response => response.map(meetup => new Meetup(meetup)));
+    .then(response => response.filter(onlyValid).map(toMeetup));
 
   return Promise.resolve(requests)
-    .then(resolvedRequest => resolvedRequest.map(meetup => meetup.toString()));
+    .then(resolvedRequest => resolvedRequest.map(meetup => meetup.render()));
 };
 
 module.exports = getUpcomingMeetups;

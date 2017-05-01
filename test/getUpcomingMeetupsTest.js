@@ -78,6 +78,35 @@ describe('getUpcomingMeetups', () => {
     }).then(done).catch(err => done(err));
   });
 
+  it('ignores malformed meetups from API', (done) => {
+    const meetup = {
+      name: generateFakeEventName(),
+      time: 1493884800000,
+      duration: 10800000,
+      venue: {
+        city: 'Sydney',
+        localized_country_name: 'Australia',
+      },
+      link: faker.internet.url(),
+    };
+
+    const malformedMeetup = undefined;
+
+    meetupAPI.upcomingMeetup
+      .withArgs(meetup.name, TOKEN)
+      .returns(Promise.resolve(meetup));
+
+    meetupAPI.upcomingMeetup
+      .withArgs(undefined, TOKEN)
+      .returns(Promise.resolve(malformedMeetup));
+
+    getUpcomingMeetups([meetup.name, undefined], TOKEN).then((upcomingMeetups) => {
+      expect(upcomingMeetups).to.eql([
+        `${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
+      ]);
+    }).then(done).catch(err => done(err));
+  });
+
   it('calculates times for different timezones', (done) => {
     const meetup = {
       name: generateFakeEventName(),
