@@ -10,20 +10,17 @@ class MeetupRenderer {
     return this.meetup.name;
   }
 
-  get localizedCountryName() {
-    return this.meetup.venue.localized_country_name;
-  }
-
-  get city() {
-    return this.meetup.venue.city;
+  get timezone() {
+    return this.meetup.venue ?
+      `${this.meetup.venue.localized_country_name}/${this.meetup.venue.city}`
+      : 'Australia/Sydney';
   }
 
   get time() {
-    const timezone = `${this.localizedCountryName}/${this.city}`;
-    const startTime = moment(this.meetup.time).tz(timezone)
+    const startTime = moment(this.meetup.time).tz(this.timezone)
       .format('MMMM D, h:mm A');
 
-    const endTime = moment(this.meetup.time).tz(timezone)
+    const endTime = moment(this.meetup.time).tz(this.timezone)
       .add(this.meetup.duration, 'milliseconds')
       .format('h:mm A');
 

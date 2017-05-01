@@ -129,4 +129,23 @@ describe('getUpcomingMeetups', () => {
       ]);
     }).then(done).catch(err => done(err));
   });
+
+  it('uses Australia/Sydney timezone by default when locale is missing', (done) => {
+    const meetup = {
+      name: generateFakeEventName(),
+      time: 1493884800000,
+      duration: 10800000,
+      link: faker.internet.url(),
+    };
+
+    meetupAPI.upcomingMeetup
+      .withArgs(meetup.name, TOKEN)
+      .returns(Promise.resolve(meetup));
+
+    getUpcomingMeetups([meetup.name], TOKEN).then((upcomingMeetups) => {
+      expect(upcomingMeetups).to.eql([
+        `${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
+      ]);
+    }).then(done).catch(err => done(err));
+  });
 });
