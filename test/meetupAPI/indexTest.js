@@ -15,7 +15,7 @@ describe('meetupAPI', () => {
       key: TOKEN.key,
       status: 'upcoming',
       page: 1,
-      only: 'name,time,duration,link',
+      only: 'name,time,duration,link,venue',
     };
 
     it('returns the next upcoming meetup', (done) => {

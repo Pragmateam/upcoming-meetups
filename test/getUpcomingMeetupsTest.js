@@ -21,6 +21,10 @@ describe('getUpcomingMeetups', () => {
       name: generateFakeEventName(),
       time: 1493884800000,
       duration: 10800000,
+      venue: {
+        city: 'Sydney',
+        localized_country_name: 'Australia',
+      },
       link: faker.internet.url(),
     };
 
@@ -41,7 +45,8 @@ describe('getUpcomingMeetups', () => {
       time: 1493884800000,
       duration: 10800000,
       venue: {
-        name: faker.address.streetAddress(),
+        city: 'Sydney',
+        localized_country_name: 'Australia',
       },
       link: faker.internet.url(),
     };
@@ -50,6 +55,10 @@ describe('getUpcomingMeetups', () => {
       name: generateFakeEventName(),
       time: 1493884800000,
       duration: 5400000,
+      venue: {
+        city: 'Sydney',
+        localized_country_name: 'Australia',
+      },
       link: faker.internet.url(),
     };
 
@@ -65,6 +74,29 @@ describe('getUpcomingMeetups', () => {
       expect(upcomingMeetups).to.eql([
         `${someMeetup.name} - May 4, 6:00 PM to 9:00 PM - ${someMeetup.link}`,
         `${anotherMeetup.name} - May 4, 6:00 PM to 7:30 PM - ${anotherMeetup.link}`,
+      ]);
+    }).then(done).catch(err => done(err));
+  });
+
+  it('calculates times for different timezones', (done) => {
+    const meetup = {
+      name: generateFakeEventName(),
+      time: 1493884800000,
+      duration: 10800000,
+      venue: {
+        city: 'Tokyo',
+        localized_country_name: 'Asia',
+      },
+      link: faker.internet.url(),
+    };
+
+    meetupAPI.upcomingMeetup
+      .withArgs(meetup.name, TOKEN)
+      .returns(Promise.resolve(meetup));
+
+    getUpcomingMeetups([meetup.name], TOKEN).then((upcomingMeetups) => {
+      expect(upcomingMeetups).to.eql([
+        `${meetup.name} - May 4, 5:00 PM to 8:00 PM - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });

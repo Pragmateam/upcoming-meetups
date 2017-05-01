@@ -6,21 +6,33 @@ class Meetup {
     this.meetup = meetup;
   }
 
-  get name() { return this.meetup.name; }
+  get name() {
+    return this.meetup.name;
+  }
+
+  get localizedCountryName() {
+    return this.meetup.venue.localized_country_name;
+  }
+
+  get city() {
+    return this.meetup.venue.city;
+  }
 
   get time() {
-    const startTime = moment(this.meetup.time).tz('Australia/Sydney')
+    const timezone = `${this.localizedCountryName}/${this.city}`;
+    const startTime = moment(this.meetup.time).tz(timezone)
       .format('MMMM D, h:mm A');
 
-    const endTime = moment(this.meetup.time).tz('Australia/Sydney')
+    const endTime = moment(this.meetup.time).tz(timezone)
       .add(this.meetup.duration, 'milliseconds')
       .format('h:mm A');
 
     return `${startTime} to ${endTime}`;
   }
 
-  get venue() { return this.meetup.venue.name; }
-  get link() { return this.meetup.link; }
+  get link() {
+    return this.meetup.link;
+  }
 
   toString() {
     return `${this.name} - ${this.time} - ${this.link}`;
