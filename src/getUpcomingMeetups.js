@@ -38,7 +38,7 @@ class MeetupRenderer {
   }
 
   render() {
-    return `**${this.groupName}** :: ${this.name} - ${this.formattedTimeRange} - ${this.link}`;
+    return `*${this.groupName}* :: ${this.name} - ${this.formattedTimeRange} - ${this.link}`;
   }
 }
 

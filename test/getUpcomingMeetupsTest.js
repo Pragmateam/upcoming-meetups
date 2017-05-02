@@ -33,7 +33,7 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups([meetup.group.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${meetup.group.name}** :: ${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
+        `*${meetup.group.name}* :: ${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
@@ -79,8 +79,8 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups(wantedMeetups, TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${someMeetup.group.name}** :: ${someMeetup.name} - May 4, 6:00 PM to 9:00 PM - ${someMeetup.link}`,
-        `**${anotherMeetup.group.name}** :: ${anotherMeetup.name} - May 4, 6:00 PM to 7:30 PM - ${anotherMeetup.link}`,
+        `*${someMeetup.group.name}* :: ${someMeetup.name} - May 4, 6:00 PM to 9:00 PM - ${someMeetup.link}`,
+        `*${anotherMeetup.group.name}* :: ${anotherMeetup.name} - May 4, 6:00 PM to 7:30 PM - ${anotherMeetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
@@ -136,9 +136,9 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups(unorderedMeetups, TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${firstMeetup.group.name}** :: ${firstMeetup.name} - June 2, 6:00 AM to 7:30 AM - ${firstMeetup.link}`,
-        `**${secondMeetup.group.name}** :: ${secondMeetup.name} - June 2, 6:30 AM to 8:00 AM - ${secondMeetup.link}`,
-        `**${thirdMeetup.group.name}** :: ${thirdMeetup.name} - June 2, 7:00 AM to 8:30 AM - ${thirdMeetup.link}`,
+        `*${firstMeetup.group.name}* :: ${firstMeetup.name} - June 2, 6:00 AM to 7:30 AM - ${firstMeetup.link}`,
+        `*${secondMeetup.group.name}* :: ${secondMeetup.name} - June 2, 6:30 AM to 8:00 AM - ${secondMeetup.link}`,
+        `*${thirdMeetup.group.name}* :: ${thirdMeetup.name} - June 2, 7:00 AM to 8:30 AM - ${thirdMeetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
@@ -170,7 +170,7 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups([meetup.group.name, undefined], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${meetup.group.name}** :: ${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
+        `*${meetup.group.name}* :: ${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
@@ -196,7 +196,7 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups([meetup.group.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${meetup.group.name}** :: ${meetup.name} - May 4, 5:00 PM to 8:00 PM - ${meetup.link}`,
+        `*${meetup.group.name}* :: ${meetup.name} - May 4, 5:00 PM to 8:00 PM - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
@@ -218,7 +218,7 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups([meetup.group.name], TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${meetup.group.name}** :: ${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
+        `*${meetup.group.name}* :: ${meetup.name} - May 4, 6:00 PM to 9:00 PM - ${meetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
