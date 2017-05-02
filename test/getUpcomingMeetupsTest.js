@@ -88,7 +88,7 @@ describe('getUpcomingMeetups', () => {
   it('sorts upcoming meetups by time, returning the upcoming first', (done) => {
     const firstMeetup = {
       name: faker.hacker.adjective(),
-      time: new Date('2017-06-02T06:00:00Z'),
+      time: new Date('2017-06-02T06:00:00+10:00'),
       duration: 5400000,
       group: {
         name: faker.hacker.noun(),
@@ -98,7 +98,7 @@ describe('getUpcomingMeetups', () => {
 
     const secondMeetup = {
       name: faker.hacker.adjective(),
-      time: new Date('2017-06-02T06:30:00Z'),
+      time: new Date('2017-06-02T06:30:00+10:00'),
       duration: 5400000,
       group: {
         name: faker.hacker.noun(),
@@ -108,7 +108,7 @@ describe('getUpcomingMeetups', () => {
 
     const thirdMeetup = {
       name: faker.hacker.adjective(),
-      time: new Date('2017-06-02T07:00:00Z'),
+      time: new Date('2017-06-02T07:00:00+10:00'),
       duration: 5400000,
       group: {
         name: faker.hacker.noun(),
@@ -136,9 +136,9 @@ describe('getUpcomingMeetups', () => {
 
     getUpcomingMeetups(unorderedMeetups, TOKEN).then((upcomingMeetups) => {
       expect(upcomingMeetups).to.eql([
-        `**${firstMeetup.group.name}** :: ${firstMeetup.name} - June 2, 4:00 PM to 5:30 PM - ${firstMeetup.link}`,
-        `**${secondMeetup.group.name}** :: ${secondMeetup.name} - June 2, 4:30 PM to 6:00 PM - ${secondMeetup.link}`,
-        `**${thirdMeetup.group.name}** :: ${thirdMeetup.name} - June 2, 5:00 PM to 6:30 PM - ${thirdMeetup.link}`,
+        `**${firstMeetup.group.name}** :: ${firstMeetup.name} - June 2, 6:00 AM to 7:30 AM - ${firstMeetup.link}`,
+        `**${secondMeetup.group.name}** :: ${secondMeetup.name} - June 2, 6:30 AM to 8:00 AM - ${secondMeetup.link}`,
+        `**${thirdMeetup.group.name}** :: ${thirdMeetup.name} - June 2, 7:00 AM to 8:30 AM - ${thirdMeetup.link}`,
       ]);
     }).then(done).catch(err => done(err));
   });
