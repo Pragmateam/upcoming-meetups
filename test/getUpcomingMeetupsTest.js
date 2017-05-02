@@ -78,6 +78,55 @@ describe('getUpcomingMeetups', () => {
     }).then(done).catch(err => done(err));
   });
 
+  it('sorts upcoming meetups by time, returning the upcoming first', (done) => {
+    const firstMeetup = {
+      name: generateFakeEventName(),
+      time: new Date(2017, 5, 2, 6, 0, 0),
+      duration: 5400000,
+      link: faker.internet.url(),
+    };
+
+    const secondMeetup = {
+      name: generateFakeEventName(),
+      time: new Date(2017, 5, 2, 6, 30, 0),
+      duration: 5400000,
+      link: faker.internet.url(),
+    };
+
+    const thirdMeetup = {
+      name: generateFakeEventName(),
+      time: new Date(2017, 5, 2, 7, 0, 0),
+      duration: 5400000,
+      link: faker.internet.url(),
+    };
+
+    meetupAPI.upcomingMeetup
+      .withArgs(firstMeetup.name, TOKEN)
+      .returns(Promise.resolve(firstMeetup));
+
+    meetupAPI.upcomingMeetup
+      .withArgs(secondMeetup.name, TOKEN)
+      .returns(Promise.resolve(secondMeetup));
+
+    meetupAPI.upcomingMeetup
+      .withArgs(thirdMeetup.name, TOKEN)
+      .returns(Promise.resolve(thirdMeetup));
+
+    const unorderedMeetups = [
+      thirdMeetup.name,
+      firstMeetup.name,
+      secondMeetup.name,
+    ];
+
+    getUpcomingMeetups(unorderedMeetups, TOKEN).then((upcomingMeetups) => {
+      expect(upcomingMeetups).to.eql([
+        `${firstMeetup.name} - June 2, 6:00 AM to 7:30 AM - ${firstMeetup.link}`,
+        `${secondMeetup.name} - June 2, 6:30 AM to 8:00 AM - ${secondMeetup.link}`,
+        `${thirdMeetup.name} - June 2, 7:00 AM to 8:30 AM - ${thirdMeetup.link}`,
+      ]);
+    }).then(done).catch(err => done(err));
+  });
+
   it('ignores malformed meetups from API', (done) => {
     const meetup = {
       name: generateFakeEventName(),

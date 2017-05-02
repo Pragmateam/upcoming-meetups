@@ -17,11 +17,13 @@ class MeetupRenderer {
   }
 
   get time() {
-    const startTime = moment(this.meetup.time).tz(this.timezone)
-      .format('MMMM D, h:mm A');
+    return moment(this.meetup.time).tz(this.timezone);
+  }
 
-    const endTime = moment(this.meetup.time).tz(this.timezone)
-      .add(this.meetup.duration, 'milliseconds')
+  get formattedTimeRange() {
+    const startTime = this.time.format('MMMM D, h:mm A');
+
+    const endTime = this.time.add(this.meetup.duration, 'milliseconds')
       .format('h:mm A');
 
     return `${startTime} to ${endTime}`;
@@ -32,7 +34,7 @@ class MeetupRenderer {
   }
 
   render() {
-    return `${this.name} - ${this.time} - ${this.link}`;
+    return `${this.name} - ${this.formattedTimeRange} - ${this.link}`;
   }
 }
 
@@ -52,7 +54,11 @@ const getUpcomingMeetups = (meetups, token) => {
     .then(response => response.filter(onlyValid).map(toMeetup));
 
   return Promise.resolve(requests)
-    .then(resolvedRequest => resolvedRequest.map(meetup => meetup.render()));
+    .then((resolvedRequest) => {
+      return resolvedRequest
+        .sort((a, b) => a.time - b.time)
+        .map(meetup => meetup.render());
+    });
 };
 
 module.exports = getUpcomingMeetups;
