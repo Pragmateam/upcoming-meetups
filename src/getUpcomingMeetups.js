@@ -6,6 +6,10 @@ class MeetupRenderer {
     this.meetup = meetup;
   }
 
+  get groupName() {
+    return this.meetup.group.name;
+  }
+
   get name() {
     return this.meetup.name;
   }
@@ -34,7 +38,7 @@ class MeetupRenderer {
   }
 
   render() {
-    return `${this.name} - ${this.formattedTimeRange} - ${this.link}`;
+    return `**${this.groupName}** :: ${this.name} - ${this.formattedTimeRange} - ${this.link}`;
   }
 }
 

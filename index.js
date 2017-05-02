@@ -10,6 +10,6 @@ api.get('/upcoming-meetups', (request) => {
   const token = { key: process.env.MEETUP_API_KEY };
 
   return getUpcomingMeetups(meetups, token).then((response) => {
-    return response.join('\n');
+    return response.join('\n\n');
   }).catch(err => console.error(err));
 }, { success: { contentType: 'text/plain' } });

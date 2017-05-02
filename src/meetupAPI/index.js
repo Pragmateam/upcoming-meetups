@@ -7,7 +7,7 @@ function composeUrl(meetupName, token) {
     key: token.key,
     status: 'upcoming',
     page: 1,
-    only: 'name,time,duration,link,venue',
+    only: 'name,time,duration,link,venue,group',
   });
 
   return `${basePath}/${meetupName}/events?${params}`;
