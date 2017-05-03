@@ -3,7 +3,7 @@ const faker = require('faker');
 
 const MeetupRenderer = require('../../src/meetupRenderer');
 
-describe('.render', () => {
+describe('meetupRenderer', () => {
   it('renders the upcoming meetup', () => {
     const meetup = {
       name: faker.hacker.adjective(),
