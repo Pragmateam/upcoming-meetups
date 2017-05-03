@@ -21,7 +21,7 @@ describe('.render', () => {
     const meetupLink = meetup.link;
 
     expect(MeetupRenderer.render(meetup)).to
-      .eql(`*${groupName}* :: ${meetupName} - ${date} - ${meetupLink}`);
+      .eql(`> *${groupName}* :: ${meetupName} - ${date} - ${meetupLink}`);
   });
 
   it('calculates times for different timezones', () => {

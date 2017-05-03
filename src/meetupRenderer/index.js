@@ -43,7 +43,7 @@ class MeetupRenderer {
   static render(meetupToBeRendered) {
     const meetup = new Meetup(meetupToBeRendered);
 
-    return `*${meetup.groupName}* :: ${meetup.name} - ${meetup.formattedTimeRange} - ${meetup.url}`;
+    return `> *${meetup.groupName}* :: ${meetup.name} - ${meetup.formattedTimeRange} - ${meetup.url}`;
   }
 }
 
