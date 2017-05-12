@@ -1,5 +1,6 @@
 const http = require('got');
 const querystring = require('querystring');
+const Meetup = require('../model');
 
 function composeUrl(meetupName, token) {
   const basePath = 'https://api.meetup.com';
@@ -17,6 +18,7 @@ module.exports = class MeetupAPI {
   static upcomingMeetup(meetupName, token) {
     return http.get(composeUrl(meetupName, token))
       .then(response => JSON.parse(response.body))
-      .then(upcomingMeetups => upcomingMeetups[0]);
+      .then(upcomingMeetups => upcomingMeetups[0])
+      .then(meetup => new Meetup(meetup));
   }
 };

@@ -1,9 +1,8 @@
-const chai = require('chai');
+const expect = require('chai').expect;
 const nock = require('nock');
-const api = require('../../../src/meetup/api');
 
-const expect = chai.expect;
-chai.use(require('chai-string'));
+const api = require('../../../src/meetup/api');
+const Meetup = require('../../../src/meetup/model');
 
 describe('meetup/api', () => {
   const TOKEN = { key: 'SECRET' };
@@ -27,7 +26,7 @@ describe('meetup/api', () => {
         .reply(200, [meetup]);
 
       api.upcomingMeetup(meetup.name, TOKEN).then((upcomingMeetup) => {
-        expect(upcomingMeetup).to.eql(meetup);
+        expect(upcomingMeetup).to.eql(new Meetup(meetup));
       }).then(done).catch(err => done(err));
     });
   });

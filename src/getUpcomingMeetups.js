@@ -16,7 +16,7 @@ const getUpcomingMeetups = (meetups, token) => {
   return Promise.all(promises)
     .then(response => response.filter(onlyValid))
     .then((response) => {
-      return response.sort((a, b) => a.time - b.time).map(render);
+      return response.sort((a, b) => a.startTime - b.startTime).map(render);
     });
 };
 
