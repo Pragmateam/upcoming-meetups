@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const faker = require('faker');
 
-const MeetupRenderer = require('../../src/meetupRenderer');
+const MeetupRenderer = require('../../src/meetup/renderer');
 
 describe('meetupRenderer', () => {
   it('renders the upcoming meetup', () => {

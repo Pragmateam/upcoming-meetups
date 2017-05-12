@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 const faker = require('faker');
 const sinon = require('sinon');
 
-const meetupAPI = require('../src/meetupAPI');
-const meetupRenderer = require('../src/meetupRenderer');
+const api = require('../src/meetup/api');
+const renderer = require('../src/meetup/renderer');
 
 const getUpcomingMeetups = require('../src/getUpcomingMeetups');
 
@@ -12,8 +12,8 @@ describe('getUpcomingMeetups', () => {
   const sandbox = sinon.sandbox.create();
 
   beforeEach(() => {
-    sandbox.stub(meetupAPI, 'upcomingMeetup');
-    sandbox.stub(meetupRenderer, 'render');
+    sandbox.stub(api, 'upcomingMeetup');
+    sandbox.stub(renderer, 'render');
   });
 
   afterEach(() => sandbox.restore());
@@ -23,11 +23,11 @@ describe('getUpcomingMeetups', () => {
       group: { name: faker.hacker.noun() },
     };
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(meetup.group.name, TOKEN)
       .returns(Promise.resolve(meetup));
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(meetup)
       .returns(meetup);
 
@@ -45,19 +45,19 @@ describe('getUpcomingMeetups', () => {
       group: { name: faker.hacker.noun() },
     };
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(someMeetup.group.name, TOKEN)
       .returns(Promise.resolve(someMeetup));
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(anotherMeetup.group.name, TOKEN)
       .returns(Promise.resolve(anotherMeetup));
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(someMeetup)
       .returns(someMeetup);
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(anotherMeetup)
       .returns(anotherMeetup);
 
@@ -85,27 +85,27 @@ describe('getUpcomingMeetups', () => {
       group: { name: faker.hacker.noun() },
     };
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(firstMeetup.group.name, TOKEN)
       .returns(Promise.resolve(firstMeetup));
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(secondMeetup.group.name, TOKEN)
       .returns(Promise.resolve(secondMeetup));
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(thirdMeetup.group.name, TOKEN)
       .returns(Promise.resolve(thirdMeetup));
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(firstMeetup)
       .returns(firstMeetup);
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(secondMeetup)
       .returns(secondMeetup);
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(thirdMeetup)
       .returns(thirdMeetup);
 
@@ -128,15 +128,15 @@ describe('getUpcomingMeetups', () => {
 
     const malformedMeetup = undefined;
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(meetup.group.name, TOKEN)
       .returns(Promise.resolve(meetup));
 
-    meetupAPI.upcomingMeetup
+    api.upcomingMeetup
       .withArgs(undefined, TOKEN)
       .returns(Promise.resolve(malformedMeetup));
 
-    meetupRenderer.render
+    renderer.render
       .withArgs(meetup)
       .returns(meetup);
 
