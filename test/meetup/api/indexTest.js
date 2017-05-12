@@ -5,7 +5,7 @@ const api = require('../../../src/meetup/api');
 const expect = chai.expect;
 chai.use(require('chai-string'));
 
-describe('api', () => {
+describe('meetup/api', () => {
   const TOKEN = { key: 'SECRET' };
 
   describe('#upcomingMeetup', () => {
