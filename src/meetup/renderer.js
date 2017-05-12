@@ -14,9 +14,11 @@ class Meetup {
   }
 
   get timezone() {
-    return this.meetup.venue ?
-      `${this.meetup.venue.localized_country_name}/${this.meetup.venue.city}`
-      : 'Australia/Sydney';
+    const venue = this.meetup.venue || { localized_country_name: '', city: '' };
+    const zoneName = `${venue.localized_country_name}/${venue.city}`;
+    const zoneNames = moment.tz.names();
+
+    return zoneNames.find(zone => zone === zoneName) || 'Australia/Sydney';
   }
 
   get startTime() {
