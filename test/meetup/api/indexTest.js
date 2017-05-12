@@ -1,11 +1,10 @@
-const chai = require('chai');
+const expect = require('chai').expect;
 const nock = require('nock');
-const meetupAPI = require('../../src/meetupAPI');
 
-const expect = chai.expect;
-chai.use(require('chai-string'));
+const api = require('../../../src/meetup/api');
+const Meetup = require('../../../src/meetup/model');
 
-describe('meetupAPI', () => {
+describe('meetup/api', () => {
   const TOKEN = { key: 'SECRET' };
 
   describe('#upcomingMeetup', () => {
@@ -26,8 +25,8 @@ describe('meetupAPI', () => {
         .query(PARAMS)
         .reply(200, [meetup]);
 
-      meetupAPI.upcomingMeetup(meetup.name, TOKEN).then((upcomingMeetup) => {
-        expect(upcomingMeetup).to.eql(meetup);
+      api.upcomingMeetup(meetup.name, TOKEN).then((upcomingMeetup) => {
+        expect(upcomingMeetup).to.eql(new Meetup(meetup));
       }).then(done).catch(err => done(err));
     });
   });
