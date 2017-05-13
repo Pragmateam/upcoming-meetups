@@ -1,6 +1,6 @@
 {
   "name": "upcoming-meetups",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Get posted about upcoming meetups from meetup.com",
   "main": "index.js",
   "scripts": {

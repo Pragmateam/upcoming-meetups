@@ -10,4 +10,5 @@ rm -rf node_modules
 #  --region ${AWS_REGION} \
 #  --api-module index \
 #  --name ${FUNCTION_NAME} \
-#  --set-env MEETUP_API_KEY=${MEETUP_API_KEY}
+#  --set-env MEETUP_API_KEY=${MEETUP_API_KEY} \
+#  --timeout 10
