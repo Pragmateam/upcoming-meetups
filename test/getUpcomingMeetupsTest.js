@@ -127,7 +127,7 @@ describe('getUpcomingMeetups', () => {
       group: { name: faker.hacker.noun() },
     });
 
-    const malformedMeetup = undefined;
+    const malformedMeetup = new Meetup(undefined);
 
     api.upcomingMeetup
       .withArgs(meetup.groupName, TOKEN)

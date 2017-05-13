@@ -2,7 +2,7 @@ const api = require('./meetup/api');
 const renderer = require('./meetup/renderer');
 
 function onlyValid(x) {
-  return x !== undefined;
+  return x.meetup !== undefined;
 }
 
 function render(meetup) {
